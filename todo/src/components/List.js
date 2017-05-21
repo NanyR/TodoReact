@@ -8,25 +8,47 @@ class List extends Component{
   constructor(){
     super()
     this.state={
-      todos:[]
+      pending:[],
+      done:[]
     }
     this.handleOnSubmit=this.handleOnSubmit.bind(this)
+    this.handleDone=this.handleDone.bind(this)
+    this.handleEdit=this.handleEdit.bind(this)
+    this.handleDelete=this.handleDelete.bind(this)
   }
 
   handleOnSubmit(todo){
     this.setState({
-      todos:[...this.state.todos, todo]
+      pending:[...this.state.pending, todo]
     })
+  }
+  handleDone(todo){
+    let i=this.state.pending.indexOf(todo)
+    let first=this.state.pending.slice(0, i)
+    let second=this.state.pending.slice(i+1)
+    this.setState({
+      done:[...this.state.done, todo],
+      pending:[this.state.pending.slice(0, i), this.state.pending.slice(i+1)]
+    })
+  }
+  handleEdit(todo){
+
+  }
+  handleDelete(todo){
+
   }
 
   render(){
-    const list= this.state.todos.map((listItem)=>{
-      return <li><Todo name={listItem}/></li>
+    const list= this.state.pending.map((listItem)=>{
+      return <Todo name={listItem} onDone={this.handleDone} onEdit={this.handleEdit} onDelete={this.handleDelete}/>
     })
     return(
-      <div>
+      <div className="list-container">
         <AddTodo handleOnSubmit={this.handleOnSubmit}/>
-        {list}
+        <ul className="tasks-container">
+          {list}
+          </ul>
+
       </div>
     )
   }
