@@ -9,11 +9,11 @@ class List extends Component{
     super()
     this.state={
       pending:[],
-      done:[]
+      done:[],
+
     }
     this.handleOnSubmit=this.handleOnSubmit.bind(this)
     this.handleDone=this.handleDone.bind(this)
-    this.handleEdit=this.handleEdit.bind(this)
     this.handleDelete=this.handleDelete.bind(this)
   }
 
@@ -30,9 +30,17 @@ class List extends Component{
       done:[...this.state.done, todo],
       pending:[this.state.pending.slice(0, i), this.state.pending.slice(i+1)]
     })
-  }
-  handleEdit(todo){
 
+  }
+
+
+  handleUpdate(todo){
+    let i=this.state.pending.indexOf(todo)
+    let first=this.state.pending.slice(0, i)
+    let second=this.state.pending.slice(i+1)
+    this.setState({
+      pending:[first, todo, second]
+    })
   }
   handleDelete(todo){
 
@@ -40,7 +48,7 @@ class List extends Component{
 
   render(){
     const list= this.state.pending.map((listItem)=>{
-      return <Todo name={listItem} onDone={this.handleDone} onEdit={this.handleEdit} onDelete={this.handleDelete}/>
+      return <Todo name={listItem} onDone={this.handleDone} onEdit={this.handleEdit} onDelete={this.handleDelete} />
     })
     return(
       <div className="list-container">
