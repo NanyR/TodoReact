@@ -28,7 +28,7 @@ class AddTodo extends Component{
       <div className="form-container">
         <form onSubmit={this.handleSubmit}>
           <input type="text" value={this.state.text} onChange={this.handleChange}/>
-          <input type="submit" value="add to list"/>
+          <input type="submit" value={this.props.button}/>
         </form>
       </div>
     )

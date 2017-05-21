@@ -25,16 +25,16 @@ handleEdit(e){
 }
 handleDelete(e){
     e.preventDefault()
-    this.props.onDelete()
+    this.props.onDelete(e.target.name)
 }
 
   render(){
     return (
     <div>
-        {this.state.edit ? <AddTodo /> : <div><li>{this.props.name}</li>
+        {this.state.edit ? <AddTodo button="update task" type="edit"/> : <div><li>{this.props.name}</li>
         <button onClick={this.handleDone.bind(this)} name={this.props.name}>Done</button>
-        <button onClick={this.handleEdit.bind(this)}>Edit</button>
-        <button onclick={this.handleDelete.bind(this)}>Delete</button></div>}
+        <button onClick={this.handleEdit.bind(this)} name={this.props.name}>Edit</button>
+        <button onClick={this.handleDelete.bind(this)} name={this.props.name}>Delete</button></div>}
 
     </div>
     )

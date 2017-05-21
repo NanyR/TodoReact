@@ -33,7 +33,6 @@ class List extends Component{
 
   }
 
-
   handleUpdate(todo){
     let i=this.state.pending.indexOf(todo)
     let first=this.state.pending.slice(0, i)
@@ -43,16 +42,21 @@ class List extends Component{
     })
   }
   handleDelete(todo){
-
+    let i=this.state.pending.indexOf(todo)
+    let first=this.state.pending.slice(0, i)
+    let second=this.state.pending.slice(i+1)
+    this.setState({
+      pending:[first, second]
+    })
   }
 
   render(){
-    const list= this.state.pending.map((listItem)=>{
-      return <Todo name={listItem} onDone={this.handleDone} onEdit={this.handleEdit} onDelete={this.handleDelete} />
+    const list= this.state.pending.map((listItem, index)=>{
+      return <Todo name={listItem} onDone={this.handleDone} onEdit={this.handleEdit} onDelete={this.handleDelete} key={index}/>
     })
     return(
       <div className="list-container">
-        <AddTodo handleOnSubmit={this.handleOnSubmit}/>
+        <AddTodo handleOnSubmit={this.handleOnSubmit} button="add task list" type="submit"/>
         <ul className="tasks-container">
           {list}
           </ul>
